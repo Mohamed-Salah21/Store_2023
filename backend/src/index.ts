@@ -1,4 +1,4 @@
-import express from "express";
+import express, { Response } from "express";
 import dotenv from "dotenv";
 import path from "path";
 import morgan from "morgan";
@@ -11,8 +11,13 @@ app.use(morgan("tiny"));
 app.use(cors());
 const port = process.env.PORT || 4000;
 dotenv.config({ path: path.join(__dirname, ".env") });
-app.use("/ecommerce/products", productsRoutes);
+app.use("/store23/v1/products", productsRoutes);
+app.use("*", (_, res: Response) =>
+  res.status(404).send({
+    errpr: "Un handled Route",
+  })
+);
 app.listen(port, () => {
   console.log(`Server is running on port: ${port}`);
   CONNECTION_DB();
-});  
+});

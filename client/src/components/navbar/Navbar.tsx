@@ -1,5 +1,4 @@
-import { Stack, Typography } from "@mui/material";
-import Avatar from "@mui/material/Avatar";
+import { Stack, Typography, Avatar, Button } from "@mui/material";
 import React, { useState, ReactElement, useEffect } from "react";
 import { useNavigate } from "react-router";
 import CartDrawer from "../Drawers/CartDrawer";
@@ -44,6 +43,28 @@ const Navbar = (): ReactElement => {
           gap: "10px",
         }}
       >
+        <Button
+          sx={{
+            textTransform: "capitalize",
+            color: scroll ? "#fff" : "#000",
+            backgroundColor: "transparent !important",
+            fontWeight: "bold",
+          }}
+          onClick={() => navigate("/login")}
+        >
+          Login
+        </Button>
+        <Button
+          sx={{
+            textTransform: "capitalize",
+            color: scroll ? "#fff" : "#000",
+            backgroundColor: "transparent !important",
+            fontWeight: "bold",
+          }}
+          onClick={() => navigate("/signupF")}
+        >
+          Sign Up
+        </Button>
         <CartDrawer scroll={scroll} />
         <FavouritesDrawer scroll={scroll} />
       </Stack>
