@@ -36,7 +36,9 @@ const CartDrawer = (props: cartDrawerProps) => {
           minWidth: 0,
         }}
       >
-        <ShoppingBagOutlinedIcon />
+        <ShoppingBagOutlinedIcon
+          sx={{ color: props.scroll ? "#fff" : "#000" }}
+        />
       </Button>
       <Drawer
         anchor={"right"}

@@ -1,14 +1,9 @@
 import React from "react";
-import { Box, Grid, Paper } from "@mui/material";
-// import { useGetAllProductsQuery } from "../../rtk_query/productsApi";
+import { Box, Grid, CircularProgress, Stack } from "@mui/material";
+import { useGetAllProductsQuery } from "../../rtk_query/productsApi";
+import Product from "../../components/home/Product";
 const HomePage = () => {
-  // const { data } = useGetAllProductsQuery(undefined);
-  // console.log("data", data);
-  React.useEffect(() => {
-    fetch("http://localhost:4000/ecommerce/products")
-      .then((res) => res.json())
-      .then((data) => console.log("fetched", data));
-  }, []);
+  const { data, isLoading } = useGetAllProductsQuery(undefined);
   return (
     <Box
       sx={{
@@ -16,22 +11,26 @@ const HomePage = () => {
       }}
     >
       <Grid container>
-        {[...Array(25)].map(() => (
-          <Grid item lg={3} md={6} xs={12} mt="20px">
-            <Paper
+        {isLoading ? (
+          <Grid xs={12} item>
+            <Stack
+              direction="row"
+              alignItems="center"
+              justifyContent="center"
               sx={{
-                height: "20vh",
-                width: 0.9,
-                mx: "auto",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
+                height: "40vh",
               }}
             >
-              <p>Oka</p>
-            </Paper>
+              <CircularProgress />
+            </Stack>
           </Grid>
-        ))}
+        ) : (
+          data?.products.map((product) => (
+            <Grid item lg={3} md={6} xs={12} mt="20px" key={product._id}>
+              <Product product={product} />
+            </Grid>
+          ))
+        )}
       </Grid>
     </Box>
   );

@@ -35,7 +35,9 @@ const FavouritesDrawer = (props: favProps) => {
         }}
         onClick={toggleDrawer("right", true)}
       >
-        <FavoriteBorderOutlinedIcon />
+        <FavoriteBorderOutlinedIcon
+          sx={{ color: props.scroll ? "#fff" : "#000" }}
+        />
       </Button>
       <Drawer
         anchor={"right"}

@@ -13,6 +13,19 @@ export const getAllProducts = async (req: Request, res: Response) => {
     products,
   });
 };
+export const getProductById = async (req: Request, res: Response) => {
+  const product = await Product.findById(req.params.id);
+  if (!product) {
+    return res.status(400).send({
+      error: "Product is not already existed",
+    });
+  }
+  res.status(200).send({
+    success: true,
+    message: "Product is fetched successfully",
+    product,
+  });
+};
 export const addProduct = async (req: Request, res: Response) => {
   const isExisted: {} | null = await Product.findOne({
     name: req.body.name,
