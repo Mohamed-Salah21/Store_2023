@@ -25,61 +25,24 @@ const LoginPage = () => {
     formik;
   const navigate = useNavigate();
   return (
-    <Grid container>
-      <Grid
-        item
-        lg={9}
-        md={8}
-        xs={12}
+    <Box
+      sx={{
+        bgcolor: publicStyle.color1,
+        p: "20px 0 50px",
+      }}
+    >
+      <Box
         sx={{
-          height: {
-            md: "100vh",
-            xs: "300px",
+          border: "1px solid red",
+          bgcolor: "#fff",
+          p: "40px 20px",
+          borderRadius: "20px",
+          width: {
+            md: "700px",
+            sm: 0.75,
+            xs: 0.9,
           },
-          bgcolor: publicStyle.bg,
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-        }}
-      >
-        <Box
-          sx={{
-            height: {
-              xl: "75%",
-              lg: "60%",
-              md: "50%",
-              xs: "200px",
-            },
-            width: {
-              xl: "75%",
-              lg: "60%",
-              md: "50%",
-              xs: "90%",
-            },
-          }}
-        >
-          <img
-            src="https://www.bettercommerce.io/images/platform/engage-banner-img.svg"
-            alt=""
-            style={{
-              objectFit: "contain",
-              height: "100%",
-              width: "100%",
-            }}
-          />
-        </Box>
-      </Grid>
-      <Grid
-        item
-        lg={3}
-        md={4}
-        xs={12}
-        sx={{
-          pt: 6,
-          pb: {
-            md: 0,
-            xs: 8,
-          },
+          m: "100px auto",
         }}
       >
         <form onSubmit={handleSubmit}>
@@ -162,8 +125,8 @@ const LoginPage = () => {
             </Stack>
           </Box>
         </form>
-      </Grid>
-    </Grid>
+      </Box>
+    </Box>
   );
 };
 

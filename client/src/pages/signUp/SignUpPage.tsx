@@ -7,14 +7,16 @@ import {
   Button,
   IconButton,
 } from "@mui/material";
-import PhotoCamera from "@mui/icons-material/PhotoCamera";
 import { publicStyle } from "../../App";
 import TextWriter from "../../components/textWriter/TextWriter";
 import { useFormik } from "formik";
 import { date, object, string } from "yup";
 import { useNavigate } from "react-router";
 import { toast } from "react-toastify";
+import DeleteIcon from "@mui/icons-material/Delete";
+import PhotoCamera from "@mui/icons-material/PhotoCamera";
 
+import FileImageUpload from "../../components/fileUpload/FileImageUpload";
 const SignUpPage = () => {
   const formik = useFormik({
     initialValues: {
@@ -31,9 +33,13 @@ const SignUpPage = () => {
         .email(() => "Invalid email")
         .required("Email is required"),
       password: string().required("Password is required"),
-      phone: string().required("Phone is required"),
-      image: string().required("Image is required"),
-      birthDate: date().required("Birth date is required"),
+      phone: string()
+        .matches(/^\d+$/, () => "Digits only")
+        .required("Phone is required"),
+      image: string().required("Proile picture is required"),
+      birthDate: date()
+        .typeError("Birth date is required")
+        .required("Birth date is required"),
     }),
     onSubmit: async () => toast.success("ok"),
   });
@@ -58,6 +64,13 @@ const SignUpPage = () => {
       });
     }
     return;
+  };
+  const handleRemoveUploadedImg = () => {
+    setProfileImage(null);
+    setValues({
+      ...values,
+      image: "",
+    });
   };
   return (
     <Box
@@ -97,71 +110,13 @@ const SignUpPage = () => {
           </Typography>
           <Grid container>
             <Grid xs={12} px={"2%"} mb={"25px"}>
-              <Box position="relative" pb={3}>
-                <Box
-                  sx={{
-                    position: "relative",
-                    width: "180px",
-                    bgcolor: "#F1F3F4",
-                    height: "180px",
-                    border:
-                      errors.image && touched.image
-                        ? "1px solid red"
-                        : "1px dashed #000",
-                    "&:hover": {},
-                  }}
-                >
-                  {profileImage ? (
-                    <img
-                      src={URL.createObjectURL(profileImage)}
-                      alt="profile"
-                      style={{
-                        height: "100%",
-                        width: "100%",
-                      }}
-                    />
-                  ) : undefined}
-                  <IconButton
-                    color="primary"
-                    aria-label="upload picture"
-                    component="label"
-                    sx={{
-                      position: "absolute",
-                      bottom: 0,
-                      width: "50px",
-                      height: "50px",
-                      borderRadius: "25px",
-                      bgcolor: "#fff !important",
-                      top: "50%",
-                      left: "50%",
-                      transform: "translate(-50%, -50%)",
-                    }}
-                  >
-                    <input
-                      hidden
-                      accept="image/*"
-                      type="file"
-                      onChange={handleUploadImg}
-                    />
-                    <PhotoCamera />
-                  </IconButton>
-                </Box>
-                {errors.image && touched.image ? (
-                  <Typography
-                    sx={{
-                      color: "red",
-                      position: "absolute",
-                      bottom: "5px",
-                      left: 0,
-                      fontSize: "12px",
-                      fontWeight: "bold",
-                      m: 0,
-                    }}
-                  >
-                    {errors.image}
-                  </Typography>
-                ) : undefined}
-              </Box>
+              <FileImageUpload
+                error={errors.image}
+                isTouched={touched.image}
+                file={profileImage}
+                uploading={handleUploadImg}
+                removing = {handleRemoveUploadedImg}
+              />
             </Grid>
             <Grid xs={12} md={6} px={"2%"}>
               <TextWriter
