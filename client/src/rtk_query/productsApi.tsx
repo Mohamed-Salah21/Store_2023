@@ -5,7 +5,7 @@ type productsResult = {
   message: string;
   products: {
     _id: string;
-    name: string;
+    title: string;
     price: number;
     image: string;
     description: string;
@@ -17,7 +17,7 @@ const productsApi = createApi({
   baseQuery: fetchBaseQuery({ baseUrl }),
   endpoints: (builder) => ({
     getAllProducts: builder.query<productsResult , undefined>({
-      query: () => `ecommerce/products`,
+      query: () => `onlineStore/products`,
       providesTags: ["productsTags"],
     }),
   }),

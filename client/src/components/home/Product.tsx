@@ -6,7 +6,7 @@ import { useNavigate } from "react-router";
 type productPropsType = {
   product: {
     _id: string;
-    name: string;
+    title: string;
     price: number;
     description: string;
     image: string;
@@ -35,7 +35,7 @@ const Product = ({ product }: productPropsType) => {
     >
       <img
         src={product.image}
-        alt={product.name}
+        alt={product.title}
         style={{
           height: "200px",
           width: "auto",
@@ -52,7 +52,7 @@ const Product = ({ product }: productPropsType) => {
           px: "10px",
         }}
       >
-        {product.name}
+        {product.title}
       </Typography>
       <Typography
         sx={{
