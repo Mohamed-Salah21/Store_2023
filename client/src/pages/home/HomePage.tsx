@@ -2,6 +2,7 @@ import React from "react";
 import { Box, Grid, CircularProgress, Stack } from "@mui/material";
 import { useGetAllProductsQuery } from "../../rtk_query/productsApi";
 import Product from "../../components/home/Product";
+
 const HomePage = () => {
   const { data, isLoading } = useGetAllProductsQuery(undefined);
   return (
