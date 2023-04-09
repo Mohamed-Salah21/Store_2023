@@ -1,8 +1,8 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-const baseUrl = "http://localhost:4000";
+import { baseUrl } from "../components/httpsServices";
 type productType = {
   _id: string;
-  name: string;
+  title: string;
   price: number;
   image: string;
   description: string;
@@ -10,13 +10,7 @@ type productType = {
 type productsResult = {
   success: boolean;
   message: string;
-  products: {
-    _id: string;
-    title: string;
-    price: number;
-    image: string;
-    description: string;
-  }[];
+  products: productType[];
 };
 const productsApi = createApi({
   reducerPath: "productsApi",
@@ -24,11 +18,15 @@ const productsApi = createApi({
   baseQuery: fetchBaseQuery({ baseUrl }),
   endpoints: (builder) => ({
     getAllProducts: builder.query<productsResult, undefined>({
-      query: () => `onlineStore/products`,
+      query: (queryParam) =>
+        queryParam ? `/products?category=${queryParam}` : `/products`,
+      providesTags: ["productsTags"],
+    }),
+    getSingleProduct: builder.query({
+      query: (id) => `/products/${id}`,
       providesTags: ["productsTags"],
     }),
   }),
 });
-export const { useGetAllProductsQuery /* useGetSingleProductQuery */ } =
-  productsApi;
+export const { useGetAllProductsQuery, useGetSingleProductQuery } = productsApi;
 export default productsApi;

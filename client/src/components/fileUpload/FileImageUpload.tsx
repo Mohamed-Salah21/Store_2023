@@ -7,7 +7,7 @@ type FileUploadProps = {
   isTouched: boolean | undefined;
   file: File | null;
   uploading: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  removing:(ev React.MouseEvent<HTMLButtenElement>)  => void   ;
+  removing: () => void;
 };
 const FileImageUpload: React.FC<FileUploadProps> = ({
   error,
