@@ -1,17 +1,7 @@
 import React from "react";
 import { Box, Typography, InputBase } from "@mui/material";
-type TextWriterProps = {
-  label: string;
-  name: string;
-  value: string | null;
-  type?: string;
-  error: string | undefined;
-  isTouched: boolean | undefined;
-  extraStyle?: object | undefined;
-  handleChange: { (e: React.ChangeEvent<HTMLInputElement>): void };
-  handleBlur: { (e: React.FocusEvent<HTMLInputElement>): void };
-};
-const TextWriter: React.FC<TextWriterProps> = ({
+
+const TextWriter = ({
   label,
   name,
   value,

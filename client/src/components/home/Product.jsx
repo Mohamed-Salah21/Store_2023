@@ -3,12 +3,19 @@ import { Paper, Typography, Stack, Button, Box } from "@mui/material";
 import ShoppingBagOutlinedIcon from "@mui/icons-material/ShoppingBagOutlined";
 import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
 import { useNavigate } from "react-router";
-import { useAddOrderMutation } from "../../rtk_query/cartApi";
+import { useCreateOrderMutation } from "../../rtk_query/cartApi";
+import { useLikeProductMutation } from "../../rtk_query/favourites";
 
 const Product = ({ product }) => {
-  const [addOrder, { isLoading }] = useAddOrderMutation();
-
+  const [createOrder, { isLoading }] = useCreateOrderMutation();
+  const [likeProduct, { isLoading: load }] = useLikeProductMutation();
   const navigate = useNavigate();
+  const createOrderInCart = (order) => {
+    createOrder(order._id);
+  };
+  const likeProductInfav = (product) => {
+    likeProduct(product._id);
+  };
   return (
     <Paper
       sx={{
@@ -75,6 +82,7 @@ const Product = ({ product }) => {
             width: "40px",
             boxShadow: "rgba(0, 0, 0, 0.24) 0px 3px 8px",
           }}
+          onClick={() => createOrderInCart(product)}
         >
           <ShoppingBagOutlinedIcon />
         </Button>
@@ -98,6 +106,7 @@ const Product = ({ product }) => {
             width: "40px",
             boxShadow: "rgba(0, 0, 0, 0.24) 0px 3px 8px",
           }}
+          onClick={() => likeProductInfav(product)}
         >
           <FavoriteBorderOutlinedIcon />
         </Button>

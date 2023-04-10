@@ -23,7 +23,6 @@ const Navbar = () => {
             backgroundColor: scroll ? "#151616" : "transparent",
             position: scroll ? "fixed" : "absolute",
             top: scroll ? 0 : "25px",
-            width: 1,
             flexDirection: "row",
             alignItems: "center",
             justifyContent: "space-between",
@@ -31,6 +30,7 @@ const Navbar = () => {
             px: "100px",
             transition: "all 0.3s",
             zIndex: 2,
+            width: 1,
           }}
         >
           <Typography

@@ -1,4 +1,4 @@
-import { fetchBaseQuery, createApi } from "@reduxjs/toolkit/dist/query";
+import { fetchBaseQuery, createApi } from "@reduxjs/toolkit/dist/query/react";
 import { baseUrl } from "../components/httpsServices";
 const cartApi = createApi({
   reducerPath: "cartApi",
@@ -9,15 +9,15 @@ const cartApi = createApi({
       headers.set("Authentication", localStorage.token),
   }),
   endpoints: (builder) => ({
-    addOrder: builder.mutation({
+    createOrder: builder.mutation({
       query: (payload) => ({
         url: "/cart/order/add",
         method: "POST",
         body: payload,
       }),
-      invalidatesTags: ["Cart"],
+      invalidatesTags: ["cartProducts"],
     }),
   }),
 });
-export const { useAddOrderMutation } = cartApi;
+export const { useCreateOrderMutation } = cartApi;
 export default cartApi;
